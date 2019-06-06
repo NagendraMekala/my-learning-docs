@@ -1,2 +1,10 @@
 https://developer.okta.com/blog/2019/05/13/angular-8-spring-boot-2
 https://medium.com/search?q=microservice
+
+
+security
+========
+https://www.xoriant.com/blog/product-engineering/microservices-security-using-jwt-authentication-gateway.html
+https://dzone.com/articles/building-microservice-using-spring-boot-and-secure
+https://medium.com/@arjunac009/spring-boot-microservice-with-centralized-authentication-zuul-eureka-jwt-5719e05fde29
+https://stormpath.com/blog/service-to-service
