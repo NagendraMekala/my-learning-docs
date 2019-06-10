@@ -8,3 +8,9 @@ https://www.xoriant.com/blog/product-engineering/microservices-security-using-jw
 https://dzone.com/articles/building-microservice-using-spring-boot-and-secure
 https://medium.com/@arjunac009/spring-boot-microservice-with-centralized-authentication-zuul-eureka-jwt-5719e05fde29
 https://stormpath.com/blog/service-to-service
+https://dzone.com/articles/monitoring-microservices-with-spring-cloud-sleuth?fromrel=true
+
+
+https://piotrminkowski.wordpress.com/tag/continuous-delivery/
+https://piotrminkowski.wordpress.com/2019/05/07/logging-with-spring-boot-and-elastic-stack/
+https://piotrminkowski.wordpress.com/2017/02/05/part-1-creating-microservice-using-spring-cloud-eureka-and-zuul/
