@@ -21,3 +21,10 @@ https://piotrminkowski.wordpress.com/2017/04/05/part-2-creating-microservices-mo
 https://appfabs.com/blog/2017/10/22/elk-log-aggregation.html
 https://geeks18.wordpress.com/2018/08/10/setting-up-elk-with-spring-boot-microservice/
 https://appfabs.com/blog/2017/10/22/elk-log-aggregation.html
+https://balamaci.ro/java-app-monitoring-with-elk-logstash/
+
+https://piotrminkowski.wordpress.com/2017/04/05/part-2-creating-microservices-monitoring-with-spring-cloud-sleuth-elk-and-zipkin/
+
+
+https://balamaci.ro/java-app-monitoring-with-elk-logstash/
+https://geowarin.com/spring-boot-logs-in-elastic-search-with-fluentd/
