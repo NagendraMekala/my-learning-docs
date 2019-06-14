@@ -14,3 +14,10 @@ https://dzone.com/articles/monitoring-microservices-with-spring-cloud-sleuth?fro
 https://piotrminkowski.wordpress.com/tag/continuous-delivery/
 https://piotrminkowski.wordpress.com/2019/05/07/logging-with-spring-boot-and-elastic-stack/
 https://piotrminkowski.wordpress.com/2017/02/05/part-1-creating-microservice-using-spring-cloud-eureka-and-zuul/
+
+elk
+===
+https://piotrminkowski.wordpress.com/2017/04/05/part-2-creating-microservices-monitoring-with-spring-cloud-sleuth-elk-and-zipkin/
+https://appfabs.com/blog/2017/10/22/elk-log-aggregation.html
+https://geeks18.wordpress.com/2018/08/10/setting-up-elk-with-spring-boot-microservice/
+https://appfabs.com/blog/2017/10/22/elk-log-aggregation.html
