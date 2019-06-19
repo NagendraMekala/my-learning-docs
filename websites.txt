@@ -13,6 +13,17 @@ https://developer.okta.com/blog/2019/04/01/spring-boot-microservices-with-kubern
 
 
 
+docker comparison
+================
+https://www.learnitguide.net/2018/04/what-is-docker-get-started-from-basics.html
+
+
+kubernetes deployement file
+===========================
+https://static.brandonpotter.com/kubernetes/DeploymentBuilder.html
+
+
+
 security
 ========
 https://www.xoriant.com/blog/product-engineering/microservices-security-using-jwt-authentication-gateway.html
