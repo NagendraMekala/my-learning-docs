@@ -5,6 +5,10 @@ https://jaxenter.com/spring-boot-tutorial-microservices-kubernetes-part-one-1354
 https://jaxenter.com/spring-boot-tutorial-microservices-kubernetes-part-2-135518.html
 
 
+multipale databases
+===================
+https://dzone.com/articles/setup-multiple-datasources-with-spring-boot-and-sp
+
 
 
 https://developer.okta.com/blog/2019/05/13/angular-8-spring-boot-2
