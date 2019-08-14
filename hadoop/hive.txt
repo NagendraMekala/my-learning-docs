@@ -1,0 +1,540 @@
+
+
+
+spark
+==========
+
+sudo jps -lm | grep 'spark'
+
+https://acadgild.com/big-data/data-analytics-training-certification?aff_id=6003&source=youtube&account=oyBL9EYpK-4&campaign=youtube_channel&utm_source=youtube&utm_medium=statisticsFDA&utm_campaign=youtube_channel#course-overview
+sqoop,flume,ozi.
+
+https://learnhbase.wordpress.com/2013/03/02/hbase-shell-commands/
+
+sqoop:
+======
+data bases support:
+==================
+oracle,mysql,postgres,netezza,teradada,sqlserver
+
+Hadoop:
+======
+hdfs,hive,hbase,Acuumula
+
+sqoop = sql + hadoop
+
+data transfer b/W RDBMS -> RDBMS
+
+map tasks: by default 4 splits and 4 map tasks,
+
+empid 
+1000
+|
+11000
+=======
+11000 - 1000 = 10000
+by default 4 map tasks, it will read 
+and ewad this primarykey range.
+
+10000/4 = 2500 range for each map task
+
+1000+2500, 1000 + 2*2500, 1000+3*2500. 1000+4*2500
+1st map = 3500       
+2       = 6000  
+3       = 8500   
+4       = 11000
+
+sqoop import
+============
+Divide table inot ranges using primary key max/min
+create mappers for each tange
+mappers write to multiple hdfs nodes
+creates text or sequence files
+generates java classe for resulting hdfs file
+generates hive defination and auto loads into hive
+
+sqopp export:
+============
+Read files in hdfs directory via mapreduce
+bulk parallel insert inot database table 
+
+mySql commnand:
+==============
+mysql -u root -p
+cloudera
+
+msql>show databases;
+use retail_db;
+show tables;
+select * from products;
+select * from products limit 2;
+
+
+sqoop commands:
+==============
+sqoop help
+sqoop list-databases --connect jdbc:mysql://localhost/ --username root --password cloudera
+sqoop list-tables --connect jdbc:mysql://localhost/retail_db --username root --password cloudera
+
+
+DDL Commands:
+Create database:
+CREATE DATABASE IF NOT EXISTS HIVE_TEST_DB COMMENT 'HIVE TEST DB FOR PRACTICE' 
+WITH DBPROPERTIES('CREATED BY'='NAG','CREATED ON'='17/01/2017');
+ 
+9618869203
+
+
+create database;
+===============
+create database NagDb;
+
+show databases:Displaying existing databases using "show" command
+==============
+show databases;
+
+Drop Database:
+=============
+Drop database NagDb
+if not empty database use along with property(casecade)
+
+Set database:
+=============
+set hive.cli.print.current.db=true; 
+
+Describe commans:
+================
+describe database hive_test_db 
+describe database extended hive_test_db
+
+Hive Create, Alter & Drop Table
+=============================
+create table NagTable(id int,name string)
+show tables
+
+create table recharge2(cell_no int,city string,name string) row format delimited fields terminated by ',';
+LOAD DATA LOCAL INPATH '/home/cloudera/Desktop/recharge.input' INTO TABLE recharge;
+
+create external table ext(id int,name string,amout string) row format delimited fields terminated by ',' Location '/user/externalHive/';
+
+create table txnRecords(txnno INT, txndate STRING, custno INT, amount DOUBLE,
+                        category STRING, product STRING,
+                        city STRING, state STRING, spendby STRING) row format delimited fields
+                        terminated by ',' stored as textfile;
+
+create table user(
+name string,
+id bigint,
+isfte boolean,
+role varchar(64),
+salary decimal(8,2),
+phones array<int>,
+deductions map<char(64),float>,
+address struct<street:string,city:string,state:string,zip:int>,
+others uniontype<float,boolean,string>,
+misc binary)
+row format delimited fields terminated by ','
+collection items terminated by ':'
+map keys terminated by '#'
+lines terminated by '\n';
+
+load data local inpath '/home/cloudera/Desktop/user.txt' into table user;
+
+load data local inpath '/home/cloudera/Desktop/user.txt' overwrite into table user;
+
+create table emp(id int,name string,age int,role string) stored as orc tblproperties("orc.compress"="SNAPPY");
+insert into emp values(101,"nagendra",25,'softwareengineer') ;
+
+LOAD DATA [LOCAL] INPATH: this works only for text formated plan tables
+solution: create temp emp_txt table with file format as textfile,
+from that copy records using
+
+LOAD DATA LOCAL INPATH '/home/cloudera/Desktop/emp.txt' INTO TABLE emp_txt;
+
+create TEMPORARY table emp_txt(id int,name string,age int,role string) row format delimited fields terminated by ',';
+
+INSERT INTO TABLE emp SELECT * FROM emp_txt;
+
+describe formatted emp;
+
+hive is not sutiable for transactions
+
+
+Partitionig
+===========
+Static partitioning
+==================
+CREATE TABLE partitioned_user(firstname VARCHAR(64), lastname  VARCHAR(64), address STRING, city VARCHAR(64), post STRING, phone1 VARCHAR(64), phone2 STRING, email STRING, web STRING) PARTITIONED BY(country VARCHAR(64), state VARCHAR(64)) row format delimited fields terminated by ',' stored as textfile;
+
+LOAD DATA LOCAL INPATH '/home/cloudera/Desktop/staticFile.txt' INTO TABLE partitioned_user PARTITION(country='US',state='CA');
+
+describe formatted partitioned_user;
+
+SELECT * FROM partitioned_user WHERE country='US' AND state='CA';
+
+set hive.cli.print.header=true;
+
+Dynamic partitioning
+===================
+
+CREATE TEMPORARY TABLE temp_user(firstname VARCHAR(64), lastname  VARCHAR(64), address STRING, country STRING, city VARCHAR(64), state STRING, post STRING, phone1 VARCHAR(64), phone2 STRING, email STRING, web STRING) row format delimited fields terminated by ',' stored as textfile;
+
+LOAD DATA LOCAL INPATH '/home/cloudera/Desktop/part.txt' INTO TABLE temp_user;
+
+SELECT * FROM temp_user WHERE country='US' AND state='CA';
+
+
+SELECT * FROM temp_user WHERE country='US' AND state='CA' LIMIT 5;
+
+
+loading data into partitioning table from temporary table
+
+INSERT INTO TABLE partitioned_user PARTITION (country,state) SELECT * from temp_user;
+
+
+set hive.exec.dynamic.partition=true;
+set hive.exec.dynamic.partition.mode=nonstrict;
+set hive.exec.max.dynamic.partitions=1000;
+set hive.exec.max.dynamic.partitions.pernode=1000;
+
+
+Bucketing:
+
+bucketing feature is not suported in impla,spark sql.
+with respactive hive in case use only hive we can use bucketing concept
+
+Example 1:
+=========
+CREATE TABLE bucket_user(firstname VARCHAR(64), lastname VARCHAR(64), address STRING, country STRING, city VARCHAR(64), state STRING, post STRING, phone1 VARCHAR(64), phone2 STRING, email STRING, web STRING) CLUSTERED BY (country) SORTED BY(firstname) INTO 4 BUCKETS ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS TEXTFILE;
+
+select * from bucket_user;
+select count(*) from temp_user;
+INSERT TABLE bucket_user SELECT * FROM temp_user;
+
+INSERT overwrite TABLE bucket_user SELECT * FROM temp_user;
+/user/hive/warehouse/nagdb.db/bucket_user
+
+Example 2:
+=========
+CREATE TABLE bucket_userstate(firstname VARCHAR(64), lastname VARCHAR(64), address STRING, city VARCHAR(64), state STRING, post STRING, phone1 VARCHAR(64), phone2 STRING, email STRING, web STRING) PARTITIONED BY(country STRING) CLUSTERED BY (state) SORTED BY(city) INTO 4 BUCKETS ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' STORED AS TEXTFILE;
+INSERT INTO TABLE bucket_userstate PARTITION (country) SELECT firstname, lastname, address, city, state, post, phone1, phone2, email, web,country FROM temp_user;
+
+
+SELECT firstname, lastname, address, city country from bucket_userstate;
+
+
+UDFS
+====
+ou
+Faq: when did you get user difined function in hive;
+
+
+com.mng.mapReduce.AutoIncrement
+
+/home/cloudera/Desktop/data.csv
+
+ CREATE TABLE t1 (id STRING, c1 STRING, c2 STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';
+
+ADD JAR /home/cloudera/Desktop/AutoIncrementUDF.jar;
+CREATE TEMPORARY FUNCTION incr2 AS 'com.mng.AutoIncrementUDF';
+
+ADD JAR /home/cloudera/Desktop/DateCnv.jar;
+CREATE TEMPORARY FUNCTION incr2 AS 'com.mng.DateCnv';
+DateCnv
+
+ADD JAR /home/cloudera/Desktop/UdfString.jar;
+CREATE TEMPORARY FUNCTION stringcnv AS 'com.mng.UdfString';
+stringcnv
+
+hive> CREATE TABLE increment_table1 (id INT, c1 STRING, c2 STRING, c3 STRING);
+hive> INSERT OVERWRITE TABLE increment_table1 SELECT incr() AS inc, id, c1, c2 FROM t1;
+hive> SELECT * FROM increment_table1;
+
+
+
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n' STORED AS TEXTFILE;
+
+sudo hbase-master start
+
+sudo hadoop-hbase-regionserver start
+
+sudo service hbase-master status/start/restart/stop
+sudo service hbase-regionserver start/restart/stop
+sudo service zookeeper-server start/restart/stop 
+
+create 'ns1:blogs', {NAME => 'info', VERSIONS => 3}, {NAME => 'content', VERSIONS => 3}
+
+Hbase:
+========
+
+Create table:
+=============
+create 'table_name', 'column_family', column_family', ..
+
+Store Data:
+===========
+put 'table_name', 'ROW_KEY', 'cloumn_family:column_name',  
+
+Get the value from hbase:
+========================
+scan 'table_name'
+ 
+get 'table_name', 'ROW_KEY'
+
+
+update/modify data:
+==================
+put 'table_name', 'row_key', 'column_family:column_name', 'value_modified'
+
+Delete data:
+============
+delete 'table_name', 'ROW_KEY',  'column_family:column_name'
+
+Drop/alter table:
+=================
+step 1 disable table name first
+ disable 'table_name'
+ drop 'table_name'
+
+create 'htest', 'cf'
+get 'htest', 'r1'
+put 'htest', 'r1', 'cf:c3', 'v5_updated'
+get 'htest', 'r1', {COLUMN => 'cf:c3', TIMESTAMP => 1517149064280}
+get 'htest', 'r1', {COLUMN => 'cf:c3', VERSIONS => 1}
+
+create 'sample','persion','add'
+scan 'sample', {LIMIT=>1}
+===========================================================
+
+General Commands
+status - Provides the status of HBase, for example, the number of servers.
+version - Provides the version of HBase being used.
+table_help - Provides help for table-reference commands.
+whoami - Provides information about the user.
+
+Data Definition Language
+These are the commands that operate on the tables in HBase.
+
+create - Creates a table.
+list - Lists all the tables in HBase.
+disable - Disables a table.
+is_disabled - Verifies whether a table is disabled.
+enable - Enables a table.
+is_enabled - Verifies whether a table is enabled.
+describe - Provides the description of a table.
+alter - Alters a table.
+exists - Verifies whether a table exists.
+drop - Drops a table from HBase.
+drop_all - Drops the tables matching the ‘regex’ given in the command.
+Java Admin API - Prior to all the above commands, 
+Java provides an Admin API to achieve DDL functionalities through programming. Underorg.apache.hadoop.hbase.client package, 
+HBaseAdmin and HTableDescriptor are the two important classes in this package that provide DDL functionalities.
+
+scd 
+====
+slowly changing Dimensions
+dont wan't delete exsiting value, should have existing value and along with new value
+
+start-all.sh
+start-habse.sh
+hbase shell
+
+stop-hbase.sh
+
+
+create 'customer', 'address', 'order'
+
+put 'customer', 'john', 'address:city', 'Boston'
+put 'customer', 'john', 'address:state', 'Mashitushes'
+put 'customer', 'john', 'address:street', 'street1'
+put 'customer', 'john', 'order:state', 'ORD-15'
+put 'customer', 'john', 'order:amount', '15'
+
+put 'customer', '11', 'address:city', 'John'
+
+put 'customer', 'Finch', 'address:city', 'Newyourk'
+put 'customer', 'Finch', 'address:state', 'Newyourk'
+put 'customer', 'Finch', 'order:number', 'ORD-16'
+put 'customer', 'Finch', 'order:amount', '15'
+
+Get:
+===
+
+get 'customer', 'john'
+get 'customer', 'Finch'
+get 'customer', 'john', 'address'
+get 'customer', 'john', 'address:city'
+get 'customer', '11', 'address:city'
+
+Delete:
+=======
+delete 'customer', 'john', 'address:city'
+
+Alter:
+======
+to delete particular column family:
+
+alter 'customer', 'delete' => 'address'
+
+to create a column familty:
+
+alter 'customer', {NAME => 'address'}
+
+Drop table:
+
+disable 'customer'
+drop table;
+
+create table along with versions with colu mn family:
+
+Versions of values:
+create 'customer', {NAME => 'address', VERSIONS => 3}
+count 'customer'
+
+put 'customer', 'Finch', 'address:city', 'Newyork'
+put 'customer', 'Finch', 'address:city', 'Detroit'
+put 'customer', 'Finch', 'address:city', 'Santrancics'
+
+scan 'customer'
+
+o/p :
+customer', 'Finch', 'address:city', 'Santrancics'
+
+get 'customer', 'Finch', {COLUMN => 'address:city', VERSIONS => 2}
+get 'customer', 'Finch', {COLUMN => 'address:city', VERSIONS => 1}
+get 'customer', 'Finch', {COLUMN => 'address:city', VERSIONS => 3}
+
+o/p: 
+ address:city                            timestamp=1517338537351, value=Santrancics                                                                          
+ address:city                            timestamp=1517338535633, value=Detroit                                                                              
+ address:city                            timestamp=1517338535588, value=Newyork
+
+
+count 'pord'
+
+scan 'prod', {TIMERANGE => [1518246313407,1518246679399]}
+scan 'prod', {STARTROW => 'r1', STOPROW => 'r2'}
+scan 'prod', {LIMIT => 3 }
+scan 'prod', {COLUMN => ['product:id','product:price']}
+
+
+export SPARK_HOME='/home/cloudera/spark-2.2.1-bin-hadoop2.6/'
+export SPARK_CONF='$SPARK_HOME/conf'
+export PATH='$SPARK_HOME/bin:$SPARK_HOME/sbin:$PATH'
+
+
+HBase                                  Hive
+curd on row upadte                     no
+maintains vsersions                    no
+less support for aggregations          yes
+joins                                  yes
+
+
+user
+================
+id name end-date
+
+Habse namespace commands:
+------------------------
+
+create_namespace 'sample
+list_namespace
+
+help 'create'
+============
+Create a table with namespace=ns1 and table qualifier=t1
+hbase> create 'ns1:t1', {NAME => 'f1', VERSIONS => 5}
+
+Create a table with namespace=default and table qualifier=t1
+hbase> create 't1', {NAME => 'f1'}, {NAME => 'f2'}, {NAME => 'f3'}
+hbase> # The above in shorthand would be the following:
+hbase> create 't1', 'f1', 'f2', 'f3'
+hbase> create 't1', {NAME => 'f1', VERSIONS => 1, TTL => 2592000, BLOCKCACHE => true}
+hbase> create 't1', {NAME => 'f1', CONFIGURATION => {'hbase.hstore.blockingStoreFiles' => '10'}}
+hbase> create 't1', {NAME => 'f1', IS_MOB => true, MOB_THRESHOLD => 1000000, MOB_COMPACT_PARTITION_POLICY => 'weekly'}
+
+insertion done by either java program and map reduce program
+
+put 'blog', 'A-1', 'info:name', 'hadoop developer'
+put 'blog', 'A-1', 'info:title', 'java tutoril'
+put 'blog', 'A-1', 'info:city', 'banglore'
+put 'blog', 'A-1', 'info:cnt', 'Andhra pradesh'
+
+
+put 'blog', 'c-1', 'info:name', 'spark developer'
+put 'blog', 'c-1', 'info:title', 'scal tutoril'
+put 'blog', 'c-1', 'info:city', 'banglore'
+put 'blog', 'c-1', 'info:cnt', 'us'
+
+put 'blog', 'b-1', 'info:name', 'angular developer'
+put 'blog', 'b-1', 'info:title', 'angualr tutoril'
+put 'blog', 'b-1', 'info:city', 'banglore'
+put 'blog', 'b-1', 'info:cnt', 'telegana pradesh'
+
+put 'blog', 'g-1', 'info:name', 'shell script developer'
+put 'blog', 'g-1', 'info:title', 'unix tutoril'
+put 'blog', 'g-1', 'info:city', 'banglore'
+put 'blog', 'g-1', 'info:cnt', 'telegana pradesh'
+
+put 'blog', 'h-1', 'info:name', 'shell script developer'
+put 'blog', 'h-1', 'info:title', 'unix tutoril'
+put 'blog', 'h-1', 'info:city', 'banglore'
+put 'blog', 'h-1', 'info:cnt', 'telegana pradesh'
+
+vesrsions:
+put 'blog', 'A-1', 'info:name', 'java developer'
+
+scan
+====
+scan 'blog', {VERSIONS=>5}
+scan 'blog', {LIMIT => 3}
+scan 'blog', {COLUMN => ['info:city','info:name']}
+scan 'blog', {COLUMN => ['info:city','info:name'],TIMERANGE => [1524975884592,1524977036224]}
+scan 'blog', {STARTROW => 'h-1',STOPROW => 'r-1'}
+scan 'blog', {STOPROW => 'r-1'}
+
+scan 'blog', {TIMERANGE => [1524977036293,15249904771950]}
+
+start row is incluseive,stop row is exclusive
+
+count
+=====
+count 'blog',INTERVAL => 2
+count 'blog'
+
+
+get
+=== 
+select one row
+get 'blog', 'h-1'
+
+select specific columns with versions
+get 'blog', 'A-1', {COLUMNS => 'info:name', VERSIONS => 5}
+get 'blog', 'r-1', {COLUMNS => 'info:name'}
+get 'blog', 'A-1', {VERSIONS => 5}
+get 'blog', 'A-1', {COLUMNS => ['info:name','info:title','info:cnt']}
+get 'blog', 'A-1', {COLUMN => 'info:title',TIMERANGE => [1524975563039,1524975563169]}
+get 'blog', 'A-1', 'info'
+get 'blog', 'r-1', 'info'
+
+delete 'blog', 'r-1', 'info:city'
+delete 'blog', 'r-1'
+deleteall 'blog', 'r-1'
+alter 'emp', {NAME => 'details', VERSIONS=>'3'}
+
+filter:
+=======
+scan 'blog', {FILTER => "ValueFilter(=,'binaryprefix:nagendra')"}
+scan 'blog', {FILTER => "PrefixFilter('A-1')"}
+scan 'blog', {FILTER => "ColumnPrefixFilter('city')"}
+scan 'blog', {FILTER => "(ColumnPrefixFilter('city')) AND PrefixFilter('A-1')"}
+scan 'blog', {FILTER => "MultipleColumnPrefixFilter('name','title')"}
+scan 'blog', {FILTER => "KeyOnlyFilter()"}
+scan 'blog', {FILTER => "FirstKeyOnlyFilter()"}
+scan 'blog', {FILTER => "PageFilter(1)"}
+scan 'blog', {FILTER => "PageFilter(2)"}
+scan 'blog', {FILTER => InclusiveStopFilter('g-1')"}
+
+truncate – Disables, drops, and recreates a specified table.
+truncate 'blog'
+thre is no roolback
