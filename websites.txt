@@ -2,6 +2,11 @@ https://grokonez.com/spring-framework/spring-boot/angular-spring-boot-jwt-authen
 https://grokonez.com/spring-framework/spring-security/spring-security-jwt-authentication-restapis-springboot-spring-mvc-spring-security-spring-jpa-mysql
 https://www.devglan.com/spring-security/spring-boot-jwt-auth
 
+https://www.novatec-gmbh.de/en/blog/ci-cd-series-part-1-how-to-build-a-ci-cd-pipeline-using-jenkins-docker-kubernetes-step-by-step-guide/
+https://cloud.spring.io/spring-cloud-netflix/multi/multi_netflix-metrics-atlas.html
+https://medium.com/netflix-techblog/open-sourcing-zuul-2-82ea476cb2b3
+https://medium.com/netflix-techblog/open-sourcing-zuul-2-82ea476cb2b3
+https://dzone.com/articles/zuul-2-sample-filter
 
 
 pivotalcloud
