@@ -7,7 +7,7 @@ https://cloud.spring.io/spring-cloud-netflix/multi/multi_netflix-metrics-atlas.h
 https://medium.com/netflix-techblog/open-sourcing-zuul-2-82ea476cb2b3
 https://medium.com/netflix-techblog/open-sourcing-zuul-2-82ea476cb2b3
 https://dzone.com/articles/zuul-2-sample-filter
-
+https://www.novatec-gmbh.de/en/blog/api-gateways-an-evaluation-of-zuul-2/
 
 pivotalcloud
 ===========
