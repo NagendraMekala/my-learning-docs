@@ -4,6 +4,15 @@ https://grokonez.com/spring-framework/spring-boot/angular-spring-boot-jwt-authen
 https://grokonez.com/spring-framework/spring-security/spring-security-jwt-authentication-restapis-springboot-spring-mvc-spring-security-spring-jpa-mysql
 https://www.devglan.com/spring-security/spring-boot-jwt-auth
 
+data structur
+=============
+https://www.java-programs.thiyagaraaj.com/heap_sort_java_example_program.html
+
+docker swarm/logstash
+=======================
+http://www.littlebigextra.com/category/docker/
+http://www.littlebigextra.com/using-kibana-and-elasticsearch-for-log-analysis-with-fluentd-on-docker-swarm/
+
 angular jwt with spring boot
 ============================
 https://grokonez.com/java-integration/angular-spring-boot-jwt-authentication-example-angular-6-spring-security-mysql-full-stack-part-3-build-frontend
@@ -86,3 +95,100 @@ https://geowarin.com/spring-boot-logs-in-elastic-search-with-fluentd/
 
 jenkins
 https://programmaticponderings.com/2015/06/22/continuous-integration-and-delivery-of-microservices-using-jenkins-ci-maven-and-docker-compose/
+
+
+
+
+
+
+//////////
+1.	Java
+	1.	Basic : Access Modifiers in java and explain its use.
+	2.	Core Java : Thread, different ways to create a thread in java.
+	3.	What is critical section and deadlock? How can we avoid deadlock? 
+	4.	Synchronized keyword.
+	5.	What type of lock allows multiple read access of the synchronized block?
+	6.	How do we know the lock is there?
+	7.	Why do we get out of memory error.? How do we avoid that?
+	8.	What is garbage collection, How garbage collection works?
+	9.	why do java implement Young generation and old generation heap? 
+	10.	How we get a dead lock? How to identify? How do we avoid thread lock?
+	11.	Is there is any downside for synchronized keyword?
+	12.	What is the difference between list & set ?
+	13.	Difference between hashmaps and hashtable ?
+	14.     How hashmap internally works?
+	15.     What is the speciality of String object?
+	16.	How can you cretae an immutable class ?
+	17.	What is a final member? what is a final class?
+	18.	What is finally?
+	19.	What is overloading and overriding ?
+	20.     Practically when overloading is used? and when we overriding?
+	21.	What is early loading and late binding?
+	22.	What is Façade pattern
+	23.	What is Singleton pattern
+	24.	What is Factory pattern
+	25.	We have garbage collector, then why java throws out of memory exception?
+	26.	Explain serialization process?
+	27.	Deep/shallow cloning, serialization
+
+2. 	Spring
+	1.	Spring bean scopes
+	2.	which one do you use and why do you prefer that.
+	3.	When and why do you use request scope?
+	4.	What all features in spring did you use.
+	5.	What is dependency injection ?
+	6. 	Bean factory Vs application context
+	7.	How to dependency inject a collection with dynamic values?
+	8.	what is MVC module?
+	9.	What are the different injectors in Spring?
+	10.	Signicifcance of constructor and setter injection (In which context we are using constructor injection)
+	11.	Is it possible to inject NULL in constructor injection
+	12.	Spring authentication and authorization
+	13.	What are different http methods. When do we use each of the methods?
+
+
+3. 	Hibernate
+	1.	Hibernate Primary cache
+	2.	Hibernate secondary cache
+	3.	N+1 loading in hibernate
+	4.	Types of cascading
+	5.	How do we connect to DB from Java?
+
+4. 	Programming
+	1. 	Reverse a linked list
+	2. 	Find the middle node in a linked list.
+	3. 	Find common nodes in a linked list.
+	4.	Find prime numbers from 1 to 100.
+	5.	Print Fibonacci series till a given number.
+	6.	Check whether a given number is an Amstrong number or not(370=3^3 + 7 ^ 3+0^3)
+	7. 	Reverse a String using recursion
+	8. 	Check whether the given input is a pallindrom.
+	9. 	Bubble sort
+	10.     Insertion sort
+	11.     Selection sort
+	12.	quick sort
+
+5.	From Nag
+	1. String related questions (reverse string, repeated string, find out repeated charterer)
+	2. count number of words repeated
+	3. customized sorting using java 8
+	4. feature of java 8
+	5. streams
+	6. Lambda
+	7. Functional interface
+	8. Map Filter methods
+	9. Collect methods
+	10. write code how to create restful webservice using spring boot
+	11. difference between @restcontroller and @controller, @responsebody, @requestbody, @pathvariable, @requestparam
+	12. feature of spring boot
+	13. compare difference between spring and spring boot
+	14. what are the annotations are used in spring
+	15. sql query groupby, orderby, joins 
+	16. http status code
+	17. how we are handling exceptions in restful web service
+        18 Object Serialization with Inheritance in Java
+        20 
+
+https://www.geeksforgeeks.org/object-serialization-inheritance-java/
+
+
