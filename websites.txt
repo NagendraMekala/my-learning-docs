@@ -8,6 +8,27 @@ data structur
 =============
 https://www.java-programs.thiyagaraaj.com/heap_sort_java_example_program.html
 
+
+spring security outh2
+===================
+https://piotrminkowski.wordpress.com/2017/03/30/advanced-microservices-security-with-oauth2/
+https://piotrminkowski.wordpress.com/2017/02/22/microservices-security-with-oauth2/
+https://piotrminkowski.wordpress.com/2017/09/15/building-secure-apis-with-vert-x-and-oauth2/
+https://piotrminkowski.wordpress.com/2017/12/01/part-2-microservices-security-with-oauth2/
+https://piotrminkowski.wordpress.com/2017/02/22/microservices-security-with-oauth2/
+https://dzone.com/articles/advanced-microservices-security-with-spring-and-oa
+
+angular good tutorial:
+======================
+https://appdividend.com/2019/06/04/angular-8-tutorial-with-example-learn-angular-8-crud-from-scratch/
+https://appdividend.com/2019/06/07/angular-8-forms-tutorial-angular-reactive-and-template-forms-example/
+
+
+zuul 2:
+=========
+https://medium.com/netflix-techblog/open-sourcing-zuul-2-82ea476cb2b3
+
+
 docker swarm/logstash
 =======================
 http://www.littlebigextra.com/category/docker/
